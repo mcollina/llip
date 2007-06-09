@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README.txt</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README.txt</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>README.txt
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Sat Jun 09 16:47:49 +0200 2007</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>LLInterpretedParser</h1>
+<p>
+The LL(k) Interpreted Parser (llip) is an automated tool to easily create
+an LL(k) parser and the related scanner without the need of generating
+anything. Everything is done on the fly through a simple DSL.
+</p>
+<h2>A Little comparrison against other tools</h2>
+<p>
+Tools like JavaCC, ANTLR, Coco/R and others use an external description
+file which they compile into the destination code. This file it&#8216;s
+usually written using a complex product related language. Using Ruby
+metaprogramming, a parser generator can go one step further. In fact, the
+llip gem gives you the possibility to write a parser writing only Ruby
+code.
+</p>
+<h2>Don&#8216;t compile anything</h2>
+<p>
+This tool is based on a simple and powerful DSL that can be used to
+specify:
+</p>
+<ul>
+<li>some tokens to be recognized in the form of regular expressions, as defined
+in <a href="../classes/LLIP/RegexpParser.html">LLIP::RegexpParser</a>,
+
+</li>
+<li>some productions using <a
+href="../classes/LLIP/ProductionSpecification.html">LLIP::ProductionSpecification</a>,
+
+</li>
+<li>some LL(K) related behaviour like lookaheads.
+
+</li>
+</ul>
+<p>
+Everything specified is automatically translated into live objects which
+can be used to do LL(K) parsing.
+</p>
+<h2>The <a href="../classes/LLIP.html">LLIP</a> Library</h2>
+<p>
+The <a href="../classes/LLIP/Parser.html">LLIP::Parser</a> is a facade of
+the entire library. In fact it handles all the wiring to make it work. It
+also takes care of generating the right LLIP::TokenSpecification starting
+from its definition, which is a simple string written as defined in <a
+href="../classes/LLIP/RegexpParser.html">LLIP::RegexpParser</a>.
+</p>
+<p>
+To use this library it&#8216;s necessary to subclass <a
+href="../classes/LLIP.html">LLIP</a>:Parser and so it&#8216;s possible to
+specify all the needed behaviours. An instance of that subclass gains the
+<tt>parse</tt> method, which parses a string or an IO with the productions
+previously defined.
+</p>
+<h2>Installation</h2>
+<p>
+<tt>sudo gem install llip</tt>
+</p>
+<h2>History of this gem</h2>
+<p>
+This library was originally developed as a project for a computer language
+course at the <a href="http://www.ing.unibo.it">engeneering</a> faculty of
+the university of Bologna, Italy.
+</p>
+<h2>A Simple Example</h2>
+<p>
+#! /usr/bin/ruby
+</p>
+<p>
+require &#8216;rubygems&#8216;
+</p>
+<p>
+require &#8216;llip&#8216;
+</p>
+<p>
+class MyParser &lt; <a href="../classes/LLIP/Parser.html">LLIP::Parser</a>
+</p>
+<pre>
+  token :num, &quot;(1|2|3|4|5|6|7|8|9|0)+&quot; # simple definition of a number
+
+  scope :number # definition of the scope, the first production which will be called
+
+  production(:number) do |p|
+
+    # inside the :number production,
+    # we are specifying what to do when we encounter a :num token
+    p.token :num do |result,scanner,parser|
+      puts &quot;The number is...&quot;
+      number = scanner.current.value
+      puts number
+      scanner.next # we are reading the next token
+      number
+    end
+
+  end
+</pre>
+<p>
+end
+</p>
+<p>
+puts &quot;&#8212;&gt;&gt;&gt; Example 1&quot;
+</p>
+<p>
+parser = MyParser.new
+</p>
+<p>
+parser.parse(&quot;1&quot;)
+</p>
+<p>
+parser.parse(&quot;34065&quot;)
+</p>
+<p>
+parser.parse(&quot;123456&quot;)
+</p>
+<p>
+puts &quot;&#8212;&gt;&gt;&gt; Example 2&quot;
+</p>
+<p>
+begin
+</p>
+<pre>
+  parser.parse(&quot;3+2&quot;)
+</pre>
+<p>
+rescue <a href="../classes/LLIP/LLIPError.html">LLIP::LLIPError</a> =&gt;
+error
+</p>
+<pre>
+  puts error
+</pre>
+<p>
+end
+</p>
+<p>
+class MyParser
+</p>
+<pre>
+  token :plus, '\+' # the '\' is required because it escapes the '+',
+                    # which is a token of a regular expressions.
+
+  scope :exp
+
+  production :exp, :recursive do |p|
+    p.default { |scanner,parser| parser.parse_number }  # this block is exectued before any
+                                                        # other block. The result of this block
+                                                        # will be putted in the first parameter of the
+                                                        # first production matched.
+
+    p.token :plus do |left,scanner,parser|
+      scanner.next
+      right = parser.parse_number # we are calling another production!!
+      sum = left.to_i + right.to_i
+      puts &quot;The sum is #{sum}&quot;
+      sum
+    end
+  end
+</pre>
+<p>
+end
+</p>
+<p>
+result = parser.parse &quot;3+2+4&quot;
+</p>
+<p>
+puts &quot;the result is #{result}&quot;
+</p>
+<h2>A more complex example, the <a href="../classes/Ariteval.html">Ariteval</a> parser</h2>
+<p>
+Bundled with this library there is an example of an Arithmetic <a
+href="../classes/Evaluator.html">Evaluator</a>, which evaluates simple
+expressions like &quot;3-7*(6-2)&quot;. In the
+&quot;examples/ariteval&quot; directory there are:
+</p>
+<dl>
+<dt><b>exp.rb</b></dt><dd>contains all the Abstract Syntax Tree node definitions.
+
+</dd>
+<dt><b>ariteval.rb</b></dt><dd>contains the <a href="../classes/Ariteval.html">Ariteval</a> class which
+defines all the productions using <a
+href="../classes/LLIP/Parser.html">LLIP::Parser</a>.
+
+</dd>
+<dt><b>evaluator.rb</b></dt><dd>a simple visitor which uses the classes defined in exp.rb.
+
+</dd>
+</dl>
+<h2>Author</h2>
+<p>
+This library has been written by Matteo Collina, matteo dot collina at
+gmail dot com.
+</p>
+<h2>License</h2>
+<p>
+(The MIT license)
+</p>
+<p>
+Copyright (c) 2006-2007 Matteo Collina
+</p>
+<p>
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+&quot;Software&quot;), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to the
+following conditions:
+</p>
+<p>
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+</p>
+<p>
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR OTHER DEALINGS IN THE SOFTWARE.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

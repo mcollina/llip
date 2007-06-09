@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: LLIP::AbstractParser</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">LLIP::AbstractParser</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/llip/abstract_parser_rb.html">
+                lib/llip/abstract_parser.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+This class hide all the complexity of generating an building a parser. Ater
+subclassing it, it&#8216;s possible to use all the methods defined in <a
+href="AbstractParser/ClassMethods.html">AbstractParser::ClassMethods</a> to
+specify the <a href="AbstractParser.html#M000044">productions</a>.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000046">[]</a>&nbsp;&nbsp;
+      <a href="#M000047">[]=</a>&nbsp;&nbsp;
+      <a href="#M000042">inherited</a>&nbsp;&nbsp;
+      <a href="#M000043">new</a>&nbsp;&nbsp;
+      <a href="#M000045">parse</a>&nbsp;&nbsp;
+      <a href="#M000044">productions</a>&nbsp;&nbsp;
+      <a href="#M000048">raise</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="AbstractParser/ClassMethods.html" class="link">LLIP::AbstractParser::ClassMethods</a><br />
+
+    </div>
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000042" class="method-detail">
+        <a name="M000042"></a>
+
+        <div class="method-heading">
+          <a href="AbstractParser.src/M000042.html" target="Code" class="method-signature"
+            onclick="popupCode('AbstractParser.src/M000042.html');return false;">
+          <span class="method-name">inherited</span><span class="method-args">(other)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000043" class="method-detail">
+        <a name="M000043"></a>
+
+        <div class="method-heading">
+          <a href="AbstractParser.src/M000043.html" target="Code" class="method-signature"
+            onclick="popupCode('AbstractParser.src/M000043.html');return false;">
+          <span class="method-name">new</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000046" class="method-detail">
+        <a name="M000046"></a>
+
+        <div class="method-heading">
+          <a href="AbstractParser.src/M000046.html" target="Code" class="method-signature"
+            onclick="popupCode('AbstractParser.src/M000046.html');return false;">
+          <span class="method-name">[]</span><span class="method-args">(key)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000047" class="method-detail">
+        <a name="M000047"></a>
+
+        <div class="method-heading">
+          <a href="AbstractParser.src/M000047.html" target="Code" class="method-signature"
+            onclick="popupCode('AbstractParser.src/M000047.html');return false;">
+          <span class="method-name">[]=</span><span class="method-args">(key,value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000045" class="method-detail">
+        <a name="M000045"></a>
+
+        <div class="method-heading">
+          <a href="AbstractParser.src/M000045.html" target="Code" class="method-signature"
+            onclick="popupCode('AbstractParser.src/M000045.html');return false;">
+          <span class="method-name">parse</span><span class="method-args">(scanner)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Parse the token generated from the scanner until it reaches the end. See <a
+href="AbstractScanner.html">AbstractScanner</a> to know how to develop a
+scanner.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000044" class="method-detail">
+        <a name="M000044"></a>
+
+        <div class="method-heading">
+          <a href="AbstractParser.src/M000044.html" target="Code" class="method-signature"
+            onclick="popupCode('AbstractParser.src/M000044.html');return false;">
+          <span class="method-name">productions</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000048" class="method-detail">
+        <a name="M000048"></a>
+
+        <div class="method-heading">
+          <a href="AbstractParser.src/M000048.html" target="Code" class="method-signature"
+            onclick="popupCode('AbstractParser.src/M000048.html');return false;">
+          <span class="method-name">raise</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+It raises a <a href="ParserError.html">ParserError</a> instead of a
+RuntimeError if no exception is given.
+</p>
+<p>
+It&#8216;s public so it&#8216;s important to call it from the production
+definitions, to have the exception set to <a
+href="ParserError.html">ParserError</a>.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

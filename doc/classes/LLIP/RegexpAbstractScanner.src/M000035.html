@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>next (LLIP::RegexpAbstractScanner)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/llip/regexp_abstract_scanner.rb, line 22</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">next</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@current</span> = <span class="ruby-constant">Token</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:nil</span>,<span class="ruby-keyword kw">nil</span>,<span class="ruby-ivar">@current_line</span>,<span class="ruby-ivar">@current_char</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@next_char</span>
+      
+      <span class="ruby-identifier">line</span> = <span class="ruby-ivar">@current_line</span>
+      <span class="ruby-identifier">char</span> = <span class="ruby-ivar">@current_char</span>
+      
+      <span class="ruby-identifier">regexp</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">scanning_table</span>[<span class="ruby-ivar">@next_char</span>]
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">regexp</span>
+        <span class="ruby-identifier">token</span> = <span class="ruby-constant">Token</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:nil</span>,<span class="ruby-ivar">@next_char</span>,<span class="ruby-identifier">line</span>,<span class="ruby-identifier">char</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">LLIPError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">token</span>,<span class="ruby-node">&quot;there isn't a regular expression which starts with #{@next_char}&quot;</span>)
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-identifier">state</span> = <span class="ruby-identifier">regexp</span>.<span class="ruby-identifier">init</span>
+      <span class="ruby-identifier">string</span> = <span class="ruby-value str">&quot;&quot;</span>
+      <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">state</span>[<span class="ruby-ivar">@next_char</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">:error</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@next_char</span>
+        <span class="ruby-identifier">state</span> = <span class="ruby-identifier">state</span>[<span class="ruby-ivar">@next_char</span>]
+        <span class="ruby-identifier">string</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@next_char</span>
+        <span class="ruby-identifier">read_next</span>
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-identifier">token</span> = <span class="ruby-constant">Token</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">state</span>.<span class="ruby-identifier">regexp</span>.<span class="ruby-identifier">name</span>,<span class="ruby-identifier">string</span>,<span class="ruby-identifier">line</span>,<span class="ruby-identifier">char</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">state</span>.<span class="ruby-identifier">final?</span>
+        <span class="ruby-ivar">@current</span> = <span class="ruby-identifier">token</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">UnvalidTokenError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">token</span>)
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

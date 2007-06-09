@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>compile (LLIP::AbstractParser::ClassMethods)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/llip/abstract_parser.rb, line 105</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compile</span>
+        
+        <span class="ruby-identifier">init_compile</span>
+        
+        <span class="ruby-comment cmt">#first check the scope</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@scope</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@productions</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-ivar">@scope</span>.<span class="ruby-identifier">to_sym</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;You must give a legal scope&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-identifier">compile_scope</span>
+        
+        <span class="ruby-comment cmt">#compile and eval all the productions</span>
+        <span class="ruby-ivar">@productions</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">prod</span><span class="ruby-operator">|</span> <span class="ruby-identifier">compile_production</span>(<span class="ruby-identifier">prod</span>) }
+        
+        <span class="ruby-identifier">class_eval</span>(<span class="ruby-ivar">@code</span>)
+        <span class="ruby-ivar">@compiled</span> = <span class="ruby-keyword kw">true</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

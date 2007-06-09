@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>production (LLIP::AbstractParser::ClassMethods)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/llip/abstract_parser.rb, line 80</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">production</span>(<span class="ruby-identifier">name</span>,<span class="ruby-identifier">mode</span>=<span class="ruby-keyword kw">nil</span>) <span class="ruby-comment cmt"># :yields: production_specification</span>
+        <span class="ruby-identifier">productions</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_sym</span>] <span class="ruby-operator">||=</span> <span class="ruby-constant">LLIP</span><span class="ruby-operator">::</span><span class="ruby-constant">ProductionSpecification</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_sym</span>)
+        <span class="ruby-identifier">productions</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_sym</span>].<span class="ruby-identifier">mode</span> = <span class="ruby-identifier">mode</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">mode</span>
+        <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">productions</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_sym</span>]
+        <span class="ruby-identifier">compile_production</span>(<span class="ruby-identifier">productions</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_sym</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">autocompile</span>
+        <span class="ruby-identifier">name</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
