@@ -13,6 +13,7 @@ Hoe.new('llip',LLIP::VERSION) do |p|
   p.description = p.paragraphs_of('README.txt', 1..3).join("\n\n")
   p.summary = "LLIP is a tool to geneate a LL(k) parser."
   p.url = "http://llip.rubyforge.org"
+  p.rdoc_pattern = /(^lib\/llip\/.*|.*\.txt)/
   p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")  
 end
 

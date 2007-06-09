@@ -1,9 +1,9 @@
-require 'abstract_parser'
-require 'regexp_abstract_scanner'
-require 'regexp_parser'
-require 'regexp_scanner'
+require File.dirname(__FILE__) + '/abstract_parser'
+require File.dirname(__FILE__) + '/regexp_abstract_scanner'
+require File.dirname(__FILE__) + '/regexp_parser'
+require File.dirname(__FILE__) + '/regexp_scanner'
+require File.dirname(__FILE__) + '/buffer'
 require 'forwardable'
-require 'buffer'
 
 module LLIP
   

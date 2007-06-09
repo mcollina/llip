@@ -1,6 +1,6 @@
-require 'regexp_specification'
-require 'abstract_scanner'
-require 'llip_error'
+require File.dirname(__FILE__) + '/regexp_specification'
+require File.dirname(__FILE__) + '/abstract_scanner'
+require File.dirname(__FILE__) + '/llip_error'
 
 module LLIP
   

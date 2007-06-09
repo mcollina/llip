@@ -1,6 +1,9 @@
 require 'rubygems'
 require 'spec'
-require File.join(File.dirname(__FILE__),"/../lib/llip") 
+
+$:.unshift(File.join(File.dirname(__FILE__), "/../lib/llip"))
+
+require 'llip'
 
 include LLIP
 
