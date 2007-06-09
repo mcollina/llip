@@ -1,14 +1,15 @@
 = LLInterpretedParser
 
-The LLInterpretedParser (+llip+) is an automated tool to easily generate an LL(k) parser and the related scanner. 
+The LL(k) Interpreted Parser (llip) is an automated tool to easily create an LL(k) parser and the related scanner without the need of generating anything. 
+Everything is done on the fly through a simple DSL.
 
-=== A Little comparrison against other tools
+== A Little comparrison against other tools
 
 Tools like JavaCC, ANTLR, Coco/R and others use an external description file which they compile into the destination code. 
 This file it's usually written using a complex product related language. Using Ruby metaprogramming, a parser generator can go one step further.
 In fact, the llip gem gives you the possibility to write a parser writing only Ruby code. 
 
-=== Don't compile anything
+== Don't compile anything
 
 This tool is based on a simple and powerful DSL that can be used to specify:
 * some tokens to be recognized in the form of regular expressions, as defined in LLIP::RegexpParser,
@@ -17,7 +18,7 @@ This tool is based on a simple and powerful DSL that can be used to specify:
 
 Everything specified is automatically translated into live objects which can be used to do LL(K) parsing.
 
-=== The LLIP Library
+== The LLIP Library
 
 The LLIP::Parser is a facade of the entire library. In fact it handles all the wiring to make it work. 
 It also takes care of generating the right LLIP::TokenSpecification starting from its definition, 
@@ -26,15 +27,15 @@ which is a simple string written as defined in LLIP::RegexpParser.
 To use this library it's necessary to subclass LLIP:Parser and so it's possible to specify all the needed behaviours.
 An instance of that subclass gains the +parse+ method, which parses a string or an IO with the productions previously defined.
 
-=== Installation
+== Installation
 
 <code>gem install llip</code>
 
-=== History of this gem
+== History of this gem
 
 This library was originally developed as a project for a course at the engeneering[http://www.ing.unibo.it] faculty of the university of Bologna, Italy.
 
-=== A Simple Example
+== A Simple Example
 
 #! /usr/bin/ruby
 
@@ -106,7 +107,7 @@ result = parser.parse "3+2+4"
 
 puts "the result is #{result}"
 
-=== A more complex example, the Ariteval parser
+== A more complex example, the Ariteval parser
 
 Bundled with this library there is an example of an Arithmetic Evaluator, 
 which evaluates simple expressions like "3-7*(6-2)". In the "examples/ariteval" directory there are:
@@ -114,11 +115,13 @@ which evaluates simple expressions like "3-7*(6-2)". In the "examples/ariteval" 
 [<b>ariteval.rb</b>] contains the productions definitions using LLIP::Parser.
 [<b>evaluator.rb</b>] a simple visitor which uses the classes defined in exp.rb.
 
-=== Author
+== Author
 
 This library has been written by Matteo Collina, matteo dot collina at gmail dot com.
 
-=== License
+== License
+
+(The MIT license)
 
 Copyright (c) 2006-2007 Matteo Collina
 
