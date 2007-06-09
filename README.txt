@@ -114,7 +114,7 @@ puts "the result is #{result}"
 Bundled with this library there is an example of an Arithmetic Evaluator,
 which evaluates simple expressions like "3-7*(6-2)". In the "examples/ariteval" directory there are:
 [<b>exp.rb</b>] contains all the Abstract Syntax Tree node definitions.
-[<b>ariteval.rb</b>] contains the productions definitions using LLIP::Parser.
+[<b>ariteval.rb</b>] contains the Ariteval class which defines all the productions using LLIP::Parser.
 [<b>evaluator.rb</b>] a simple visitor which uses the classes defined in exp.rb.
 
 == Author
