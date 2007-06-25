@@ -1,8 +1,6 @@
-require 'visitable'
-
 class NumExp
 
-  include Visitable
+  include LLIP::Visitable
   
   attr_reader :value
 
@@ -16,7 +14,7 @@ class NumExp
 end
 
 class IdentExp
-  include Visitable
+  include LLIP::Visitable
   
   attr_reader :value
 
@@ -31,7 +29,7 @@ end
 
 class AssignIdentExp
 	
-  include Visitable
+  include LLIP::Visitable
 
   attr_reader :name
   attr_reader :value
@@ -49,7 +47,7 @@ end
 
 class OpExp
 
-  include Visitable
+  include LLIP::Visitable
 
   attr_reader :op
   attr_reader :left

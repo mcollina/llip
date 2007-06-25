@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-require 'abstract_parser'
 
 describe "A class descending from AbstractParser" do
 

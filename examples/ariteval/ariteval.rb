@@ -1,4 +1,3 @@
-require 'parser'
 require 'evaluator'
 
 # It's a simple arithmetical evaluator. It's able to parse expressions like these: 
@@ -25,7 +24,7 @@ require 'evaluator'
 #   FACTOR ::= ( EXP )
 # }
 #
-class Ariteval < Parser
+class Ariteval < LLIP::Parser
 	
   def initialize
     super

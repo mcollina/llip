@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-require 'llip_error'
 
 describe "An LLIPError" do
 

@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-require 'parser'
 require 'stringio'
 
 describe "A class that descend from Parser" do

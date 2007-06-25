@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-require 'regexp_abstract_scanner'
 
 describe "A class descending from RegexpAbstractScanner" do
 

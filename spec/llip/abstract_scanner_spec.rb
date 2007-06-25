@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-require 'abstract_scanner'
 require 'stringio'
 
 describe "An AbstractScanner" do

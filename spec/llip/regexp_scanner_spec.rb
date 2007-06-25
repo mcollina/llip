@@ -1,6 +1,4 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-require 'regexp_scanner'
-require 'token'
 require 'stringio'
 
 describe "A RegexpScanner should scan" do

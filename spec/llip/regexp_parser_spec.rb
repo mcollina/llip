@@ -1,7 +1,4 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-require 'regexp_parser'
-require 'regexp_specification'
-require 'token'
 
 module RegexpMockScannerBuilder
 
