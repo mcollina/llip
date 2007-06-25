@@ -177,8 +177,14 @@ module LLIP
         examined[new_first] ||= state
         examined[new_second] ||= state
         
-        if new_first.final? or new_second.final?
+        if new_first.final? and new_second.final?
           raise "It's impossible to mix two regexp with final states in common."
+        elsif new_first.final?
+          state.regexp = new_first.regexp
+          state.final = true
+        elsif new_second.final?
+          state.regexp = new_second.regexp
+          state.final = true
         end
         mix_accessor(new_first,new_second,regexp,state,examined)
       end

@@ -1,5 +1,8 @@
 == 2007-06-25
 
+* 1 major enhacement
+  * added the possibility to define two token with final states in common
+
 * 1 minor enhacement
   * spec loading fixed
 

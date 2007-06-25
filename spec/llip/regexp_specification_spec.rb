@@ -636,7 +636,7 @@ describe "The :mix method of the RegexpSpecification class" do
     second['a'].error.should == s3
   end
 
-  it "should raise if trying to mix: 'ab' and 'abc'" do
+  it "should be able to mix: 'ab' and 'abc'" do
     r1 = RegexpSpecification.new("first")
     r2 = RegexpSpecification.new("second")
 		
@@ -653,8 +653,13 @@ describe "The :mix method of the RegexpSpecification class" do
     s4['a'] = s5
     s5['b'] = s6
     s6['c'] = s7
-		
-    lambda { RegexpSpecification.mix(r1,r2) }.should raise_error(RuntimeError)
+	
+    result = RegexpSpecification.mix(r1,r2)
+    result.name.should == :"mix between 'first' and 'second'"
+    result['a']['b'].should be_final
+    result['a']['b'].regexp.should == r1
+    result['a']['b']['c'].should be_final
+    result['a']['b']['c'].regexp.should == r2
   end
 
   it "should be able to mix: '(a|b)c' and '(b|e)d'" do
