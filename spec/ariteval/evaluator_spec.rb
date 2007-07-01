@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require 'ariteval'
 require 'evaluator'
-require 'buffer'
 
 
 describe 'An Evaluator' do
@@ -61,26 +61,26 @@ describe "An Evaluator should be able to eval" do
     expression = "3 * (4 - 2) + 5*(4/2)/(3-2)"
 		
     exp = PlusExp.new(
-    MulExp.new(
-    NumExp.new(3),
-    MinusExp.new(
-    NumExp.new(4),
-    NumExp.new(2)
-    )
-    ),
-    DivExp.new(
-    MulExp.new(
-    NumExp.new(5),
-    DivExp.new(
-    NumExp.new(4),
-    NumExp.new(2)
-    )
-    ),
-    DivExp.new(
-    NumExp.new(3),
-    NumExp.new(2)
-    )
-    )
+      MulExp.new(
+        NumExp.new(3),
+        MinusExp.new(
+          NumExp.new(4),
+          NumExp.new(2)
+        )
+      ),
+      DivExp.new(
+        MulExp.new(
+          NumExp.new(5),
+          DivExp.new(
+            NumExp.new(4),
+            NumExp.new(2)
+          )
+        ),
+        DivExp.new(
+          NumExp.new(3),
+          NumExp.new(2)
+        )
+      )
     )
 		
     exp.accept(@eval)
@@ -102,5 +102,9 @@ describe "An Evaluator should be able to eval" do
     @eval.ident_table["a"] = 5
     @parser.parse("a").accept(@eval)
     @eval.result.should == @eval.ident_table["a"]
+  end
+  
+  it "an IdentExp with an unknown name" do
+    lambda { @parser.parse("a").accept(@eval) }.should raise_error
   end
 end

@@ -1,4 +1,5 @@
-require 'evaluator'
+require File.dirname(__FILE__) + '/evaluator'
+require File.dirname(__FILE__) + '/exp'
 
 # It's a simple arithmetical evaluator. It's able to parse expressions like these: 
 # * ( a = 3 * 2 ) - ( 24 + a ),
@@ -58,6 +59,8 @@ class Ariteval < LLIP::Parser
 
   token :assign, "= *" 
 	
+  token :space, " "
+  
   # production definitions
 	
   lookahead(true)
@@ -65,7 +68,14 @@ class Ariteval < LLIP::Parser
   scope :exp
 
   production(:exp,:recursive) do |prod|
-    prod.default { |scanner,parser| parser.parse_term }
+    prod.default do |scanner,parser| 
+      #this is needed to trim spaces from the beginning of the string to parse
+      while scanner.current == :space
+        scanner.next
+      end
+      
+      parser.parse_term
+    end
 
     prod.token(:plus) do |term_seq,scanner,parser|
       scanner.next
@@ -78,7 +88,6 @@ class Ariteval < LLIP::Parser
       next_term = parser.parse_term
       MinusExp.new(term_seq,next_term)
     end
-	
   end
 
   production(:term,:recursive) do |prod|

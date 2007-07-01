@@ -80,6 +80,10 @@ describe "An Ariteval should be able to parse" do
   it "'( a = 3 * 2 ) - ( 24 + a )'" do
     @parser.parse('( a = 3 * 2 ) - ( 24 + a )').to_s.should == "( ( a = ( 3 * 2 ) ) - ( 24 + a ) )"
   end
+  
+  it "' 3 + 2'" do
+    @parser.parse(' 3 + 2').to_s.should == "( 3 + 2 )"
+  end
 end
 
 describe "An Ariteval shouldn't be able to parse" do

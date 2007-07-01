@@ -39,6 +39,7 @@ class Evaluator
   end
 
   def visit_ident_exp(exp)
+    raise "Unknown variable \"#{exp.value}\"" unless ident_table.has_key?(exp.value)
     @result = ident_table[exp.value]
   end
 
