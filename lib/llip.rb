@@ -4,3 +4,4 @@ module LLIP
 end
 
 require File.dirname(__FILE__) + '/llip/parser'
+require File.dirname(__FILE__) + '/llip/visitable'
