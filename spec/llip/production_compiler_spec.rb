@@ -137,12 +137,13 @@ describe "A ProductionCompiler" do
 
     @production = mock "Production"
     @production.should_receive(:name).and_return(:fake)
-    @production.should_receive(:tokens).and_return({ [:look,"3"] => nil, [:look,"1"] => nil, :look => nil})
+    @production.should_receive(:tokens).and_return({[:look,"3","2"] => nil, :look => nil, [:look,"1"] => nil, [:look, "2"] => nil })
     @production.should_receive(:raise_on_error).and_return(true)
 
     @compiler.should_receive(:start).with(:fake)
-    @compiler.should_receive(:token).with([:look,"3"])	
+    @compiler.should_receive(:token).with([:look,"3","2"])	
     @compiler.should_receive(:token).with([:look,"1"])
+    @compiler.should_receive(:token).with([:look,"2"])
     @compiler.should_receive(:token).with(:look)	
     @compiler.should_receive(:end).with(true)
 
@@ -156,6 +157,14 @@ describe "A ProductionCompiler" do
     @production.should_receive(:tokens).and_return({ [:look,"1"] => nil, [:look,"3","2"] => nil, :everything => nil, :look => nil})
 		
     @compiler.sort_production(@production).should == [[:look,"3","2"],[:look,"1"], :look, :everything]
+    
+    @production = mock "Production"
+    tokens = mock "Tokens"
+    tokens.should_receive(:keys).twice.and_return([[:look,"3","2"],[:look,"1"]])
+    tokens.should_receive(:has_key?).twice.with(:look).and_return(false)
+    @production.should_receive(:tokens).and_return(tokens)
+		
+    @compiler.sort_production(@production).should == [[:look,"3","2"],[:look,"1"]]
   end
 end
 

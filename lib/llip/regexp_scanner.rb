@@ -15,7 +15,7 @@ module LLIP
     
     add_regexp(CHAR)
     
-    # It represents the regular expression '(.|*|+|\(|\)|\\|\|)' so it matches the chars: . * + ( ) \ |
+    # It represents the regular expression '(.|*|+|\(|\)|\\|\|\[|\]-)' so it matches the chars: . * + ( ) \ | [ ] -
     SYMBOL = LLIP::RegexpSpecification.new(:symbol)
     
     SYMBOL.add_state
@@ -27,6 +27,8 @@ module LLIP
     SYMBOL.init[')'] = final
     SYMBOL.init['\\'] = final
     SYMBOL.init['|'] = final
+    SYMBOL.init['['] = final
+    SYMBOL.init[']'] = final
     
     add_regexp(SYMBOL)
   end

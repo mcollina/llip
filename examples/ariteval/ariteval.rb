@@ -39,8 +39,7 @@ class Ariteval < LLIP::Parser
 
   # tokens definitions
 	
-  numbers = ("0".."9").to_a.join("|")
-  token :number, "(#{numbers})+ *"
+  token :number, "[0-9]+ *"
 
   token :plus, '\+ *'
 	
@@ -54,8 +53,7 @@ class Ariteval < LLIP::Parser
 	
   token ")".to_sym, '\) *'
 
-  identifiers = (("a".."z").to_a + ("A".."Z").to_a).join("|")
-  token :ident, "(#{identifiers}) *"
+  token :ident, "[a-zA-Z] *"
 
   token :assign, "= *" 
 	

@@ -5,7 +5,7 @@ module RegexpMockScannerBuilder
   def mock_scanner(*tokens)
     @scanner = mock "Scanner"
     tokens.map! do |t|
-      if t =~ /[\.\+\*\|\(\)\\]/
+      if t =~ /[\.\+\*\|\(\)\\\-\[\]]/
         Token.new(:symbol,t)
       else
         Token.new(:char,t)
@@ -16,7 +16,7 @@ module RegexpMockScannerBuilder
     t = nil
     @scanner.should_receive(:next).exactly(tokens.size).and_return { t = @tokens.shift }
     @scanner.should_receive(:current).any_number_of_times.and_return { t }
-    @scanner
+    Buffer.new(@scanner)
   end
 
 end
@@ -242,6 +242,85 @@ describe "A RegexpParser should parse" do
     regexp.init['a']['c'].final?.should == false
     regexp.init['a']['c']['e'].final?.should == false
   end
+  
+  it "[a-zD]" do
+    @scanner = mock_scanner("[","a","-","z","D","]")
+    regexp = @parser.parse(@scanner)
+    
+    keys = regexp.init.keys
+    expected_keys = ("a".."z").to_a + ["D"]
+    keys.sort!
+    expected_keys.sort!
+    keys.should == expected_keys
+    keys.each do |key|
+      regexp[key].should be_final
+    end
+  end
+  
+  it "[a-Z]" do
+    @scanner = mock_scanner("[","a","-","Z","]")
+    regexp = @parser.parse(@scanner)
+    
+    keys = regexp.init.keys
+    expected_keys = ("a".."z").to_a + ("A".."Z").to_a
+    keys.sort!
+    expected_keys.sort!
+    keys.should == expected_keys
+    keys.each do |key|
+      regexp[key].should be_final
+    end
+  end
+  
+  
+  it "a[bc]+d" do
+    @scanner = mock_scanner("a","[","b","c","]","+","d")
+    regexp = @parser.parse(@scanner)
+
+    regexp.init['a'].keys.should == ['b','c']
+		
+    regexp['a']['b'].keys.should == ['b','c','d']
+    regexp['a']['c'].keys.should == ['b','c','d']
+		
+    regexp.init['a']['b']['d'].should be_final
+    regexp.init['a']['c']['d'].should be_final
+	
+    regexp.init['a'].should_not == regexp.init['a']['b']
+    regexp.init['a'].should_not == regexp.init['a']['c']
+		
+    regexp.init['a']['b']['b'].should == regexp.init['a']['b']
+    regexp.init['a']['c']['b'].should == regexp.init['a']['b']
+    regexp.init['a']['b']['c'].should == regexp['a']['c']
+
+    regexp['a']['b'].final?.should == false
+    regexp.init['a']['c'].final?.should == false
+    regexp.init['a']['c'].final?.should == false
+  end
+  
+    
+  it "a[bc]*d" do
+    @scanner = mock_scanner("a","[","b","c","]","*","d")
+    regexp = @parser.parse(@scanner)
+
+    regexp.init['a'].keys.should == ['b','c','d']
+    regexp['a']['d'].should be_final
+		
+    regexp['a']['b'].keys.should == ['b','c','d']
+    regexp['a']['c'].keys.should == ['b','c','d']
+		
+    regexp.init['a']['b']['d'].should be_final
+    regexp.init['a']['c']['d'].should be_final
+	
+    regexp.init['a'].should == regexp.init['a']['b']
+    regexp.init['a'].should == regexp.init['a']['c']
+		
+    regexp.init['a']['b']['b'].should == regexp.init['a']['b']
+    regexp.init['a']['c']['b'].should == regexp.init['a']['b']
+    regexp.init['a']['b']['c'].should == regexp['a']['c']
+
+    regexp['a']['b'].final?.should == false
+    regexp.init['a']['c'].final?.should == false
+    regexp.init['a']['c'].final?.should == false
+  end
 
 end
 
@@ -256,6 +335,11 @@ describe "A RegexpParser should not parse" do
 
   it "a(cdef" do
     @scanner = mock_scanner("a","(","b","c","d","e","f")
+    lambda { @parser.parse(@scanner) }.should raise_error(RuntimeError)
+  end
+  
+  it "a[cdef" do
+    @scanner = mock_scanner("a","[","b","c","d","e","f")
     lambda { @parser.parse(@scanner) }.should raise_error(RuntimeError)
   end
 

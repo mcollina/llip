@@ -6,11 +6,11 @@ module LLIP
   #
   # === Grammar
   #	
-  # VN = { EXP , ELEMENT}
+  # VN = { EXP , ELEMENT , META}
   #
   # char = every charachter
   #	
-  # symb = { ( , ) , . , * , + , \ , |}
+  # symb = { ( , ) , . , * , + , \ , | , [ , ] }
   #	
   # VT = char U symb
   #
@@ -24,7 +24,12 @@ module LLIP
   #   META -> ELEMENT+
   #   META -> ELEMENT
   #   ELEMENT -> char or . or \symb
+  #   ELEMENT -> [CLASS]
   #   ELEMENT -> (EXP)
+  #   CLASS -> char
+  #   CLASS -> char CLASS
+  #   CLASS -> char - char
+  #   CLASS -> char - char CLASS
   # }
   #
   # or in EBNF format
@@ -32,7 +37,8 @@ module LLIP
   # P' = {
   #   EXP ::= META{[|]EXP}
   #   META ::= ELEMENT[* or  +]
-  #   ELEMENT ::= char or . or \symb or (EXP)
+  #   ELEMENT ::= char or . or \symb or (EXP) or [CLASS]
+  #   CLASS ::= char{ - char or - char char or char}
   # }
   #
   class LLIP::RegexpParser < LLIP::AbstractParser
@@ -67,7 +73,6 @@ module LLIP
       end
       
       p.token("|") do |result,scanner,parser|
-        result 
         scanner.next
         parser[:last] = result
         parser.parse_meta.last
@@ -84,6 +89,11 @@ module LLIP
       end
       
       p.token("(") do |result,scanner,parser|
+        parser.parse_meta
+        result
+      end
+      
+      p.token("[") do |result,scanner,parser|
         parser.parse_meta
         result
       end
@@ -170,6 +180,55 @@ module LLIP
         scanner.next
         parser[:last] = first_state.last
         first_state.keys
+      end
+      
+      p.token("[") do |result, scanner, parser|
+        scanner.next
+        
+        chars = parser.parse_class
+        unless scanner.current == "]"
+          raise "Every '[' must be followed by a ']'"
+        end
+        scanner.next
+        
+        state = parser[:regexp].add_state
+        chars.each do |char|
+          parser[:last].each { |s| s[char] = state }
+        end
+ 
+        parser[:last] = [state]
+        chars
+      end
+    end
+    
+    production :class, :recursive do |prod|
+      prod.default do |scanner,parser| 
+        []
+      end
+      
+      prod.token(:char) do |result, scanner, parser|
+        result << scanner.current.value
+        scanner.next
+        result
+      end
+      
+      prod.token(:char,"-",:char) do |result, scanner, parser|
+        first_char = scanner.current.value
+        scanner.next
+        last_char = scanner.next.value
+        
+        block = lambda do |char|
+            result << char
+          end
+        
+        if first_char =~ /[a-z]/ and last_char =~ /[A-Z]/
+          (first_char.."z").to_a.each(&block)
+          ("A"..last_char).to_a.each(&block)
+        else
+          (first_char..last_char).to_a.each(&block)
+        end
+        scanner.next
+        result
       end
     end
     

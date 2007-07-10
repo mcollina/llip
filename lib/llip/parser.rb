@@ -83,7 +83,7 @@ module LLIP
         @parser = Class.new(AbstractParser)
         @scanner = Class.new(RegexpAbstractScanner)
         
-        @regexp_scanner = RegexpScanner.new
+        @regexp_scanner = Buffer.new(RegexpScanner.new)
         @regexp_parser = RegexpParser.new
         
         @lookahead = false

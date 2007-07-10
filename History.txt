@@ -1,10 +1,12 @@
-== 2007-06-25
+== 0.2.0 
 
-* 1 major enhacement
-  * added the possibility to define two token with final states in common
+* 2 major enhacement
+  * added the possibility to define two token in which final states of the first are internal states of the second
+  * added the '[a-Z]' syntax to regular expression support
 
 * 1 minor enhacement
   * spec loading fixed
+  * added a simple REPL based on Ariteval
 
 == 0.1.0 / 2007-06-09
 

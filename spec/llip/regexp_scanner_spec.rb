@@ -35,4 +35,16 @@ describe "A RegexpScanner should scan" do
     @scanner.next.should == :symbol
     @scanner.next.should be_nil
   end
+  
+  it "'[a-zA-Z]'" do
+    @scanner.scan('[a-zA-Z]')
+    @scanner.next.should == :symbol
+    @scanner.next.should == 'a'
+    @scanner.next.should == '-'
+    @scanner.next.should == 'z'
+    @scanner.next.should == 'A'
+    @scanner.next.should == '-'
+    @scanner.next.should == 'Z'
+    @scanner.next.should == :symbol
+  end
 end

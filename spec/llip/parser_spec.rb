@@ -37,7 +37,8 @@ describe "A class that descend from Parser" do
     @class.should respond_to(:regexp_scanner)
 
     @class.regexp_parser.should be_kind_of(RegexpParser)
-    @class.regexp_scanner.should be_kind_of(RegexpScanner)
+    @class.regexp_scanner.should be_kind_of(Buffer)
+    @class.regexp_scanner.scanner.should be_kind_of(RegexpScanner)
   end
 
   it "should have a token method which parse a regexp and calls :add_regexp to the scanner" do
@@ -134,7 +135,7 @@ describe "The instance of a class descending from Parser with a simple grammar s
     @instance = @class.new
 
     @class.token(:plus,"\\+")
-    @class.token(:number,("0".."9").to_a.join("|"))
+    @class.token(:number,"[0-9]")
 	
     @class.scope(:exp)
 
