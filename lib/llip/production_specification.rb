@@ -27,8 +27,8 @@ module LLIP
     # They are specified through ProductionSpecification#token.
     attr_reader :tokens
     
-    # The mode of the production. It can be :single or :recursive.
-    attr_accessor :mode
+    # The mode of the production. It can be :single or :recursive (:iterative is just an alias for :recursive).
+    attr_reader :mode
     
     # This attribute specifies if the production should raise an exception if the current token hasn't been recognized.
     # It's important only for :single productions.
@@ -73,6 +73,14 @@ module LLIP
       block ||= b
       @default = block if block
       @default
+    end
+    
+    # see ProductionSpecification#mode
+    def mode=(value)
+      if value == :iterative
+        value = :recursive
+      end
+      @mode = value
     end
     
   end

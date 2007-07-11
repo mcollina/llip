@@ -53,7 +53,7 @@ class Ariteval < LLIP::Parser
 	
   token ")".to_sym, '\) *'
 
-  token :ident, "[a-zA-Z] *"
+  token :ident, "[a-Z] *"
 
   token :assign, "= *" 
 	
@@ -65,7 +65,7 @@ class Ariteval < LLIP::Parser
 	
   scope :exp
 
-  production(:exp,:recursive) do |prod|
+  production(:exp,:iterative) do |prod|
     prod.default do |scanner,parser| 
       #this is needed to trim spaces from the beginning of the string to parse
       while scanner.current == :space
@@ -88,7 +88,7 @@ class Ariteval < LLIP::Parser
     end
   end
 
-  production(:term,:recursive) do |prod|
+  production(:term,:iterative) do |prod|
     prod.default { |scanner,parser| parser.parse_factor }
 
     prod.token(:mul) do |factor_seq,scanner,parser|

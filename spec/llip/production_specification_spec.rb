@@ -71,4 +71,9 @@ describe "A ProductionSpecification" do
     @production.raise_on_error=false
     @production.raise_on_error.should == false
   end
+  
+  it "should alias :recursive with :iterative" do
+    @production.mode = :iterative
+    @production.mode.should == :recursive
+  end
 end
