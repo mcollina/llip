@@ -1,9 +1,8 @@
-== 0.2.0 
+== 0.2.0 / 2007-07-17
 
 * 2 major enhacement
-  * added the possibility to define two token in which final states of the first are internal states of the second
   * added the '[a-Z]' syntax to regular expression support
-
+  * added the possibility to define two token in which final states of the first are internal states of the second
 * 1 minor enhacement
   * spec loading fixed
   * added a simple REPL based on Ariteval

@@ -5,6 +5,7 @@ README.txt
 Rakefile
 examples/ariteval
 examples/ariteval/ariteval.rb
+examples/ariteval/ariteval_repl.rb
 examples/ariteval/evaluator.rb
 examples/ariteval/exp.rb
 lib/llip
