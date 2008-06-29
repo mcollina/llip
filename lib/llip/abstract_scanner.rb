@@ -61,12 +61,12 @@ module LLIP
     # If EOF is reached, it will return nil.
     def read_next
       unless @source.eof?
-        @next_char = @source.readchar.chr	
+        @next_char = @source.readchar.chr
         while @next_char =~ UTF8_MB_PATTERN
           @next_char << @source.readchar.chr	
         end
         
-        if @next_char == $-0
+        if @next_char == "\n"
           @current_line += 1
           @current_char = -1	
         else

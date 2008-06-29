@@ -79,7 +79,7 @@ describe "A class descending from RegexpAbstractScanner" do
     @class.scanning_table['a'].should be_kind_of(RegexpSpecification)
     init = @class.scanning_table['a'].init
     second = init['a']
-    second.keys.should == ['b','c']
+    second.keys.sort.should == ['b','c']
     second['b'].should == s3
     second['c'].should == s6
   end
