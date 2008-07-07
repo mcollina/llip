@@ -26,10 +26,10 @@ module LLIP
   #   ELEMENT -> char or . or \symb
   #   ELEMENT -> [CLASS]
   #   ELEMENT -> (EXP)
-  #   CLASS -> char
-  #   CLASS -> char CLASS
-  #   CLASS -> char - char
-  #   CLASS -> char - char CLASS
+  #   CLASS -> char or \symb
+  #   CLASS -> char or \symb CLASS
+  #   CLASS -> char or \symb - char or \symb
+  #   CLASS -> char or \symb - char or \symb CLASS
   # }
   #
   # or in EBNF format
@@ -204,6 +204,13 @@ module LLIP
     production :class, :recursive do |prod|
       prod.default do |scanner,parser| 
         []
+      end
+      
+      prod.token('\\') do |result,scanner,parser|
+        scanner.next
+        result << scanner.current.value
+        scanner.next
+        result
       end
       
       prod.token(:char) do |result, scanner, parser|

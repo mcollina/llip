@@ -321,6 +321,35 @@ describe "A RegexpParser should parse" do
     regexp.init['a']['c'].final?.should == false
     regexp.init['a']['c'].final?.should == false
   end
+  
+  it "a[bc\\.]*d" do
+    @scanner = mock_scanner("a","[","b","c","\\",".","]","*","d")
+    regexp = @parser.parse(@scanner)
+
+    regexp.init['a'].keys.should == ['b','.','c','d']
+    regexp['a']['d'].should be_final
+		
+    regexp['a']['b'].keys.should == ['b','.','c','d']
+    regexp['a']['c'].keys.should == ['b','.','c','d']
+    regexp['a']['.'].keys.should == ['b','.','c','d']
+		
+    regexp.init['a']['b']['d'].should be_final
+    regexp.init['a']['c']['d'].should be_final
+    regexp.init['a']['.']['d'].should be_final
+	
+    regexp.init['a'].should == regexp.init['a']['b']
+    regexp.init['a'].should == regexp.init['a']['c']
+    regexp.init['a'].should == regexp.init['a']['.']
+		
+    regexp.init['a']['b']['b'].should == regexp.init['a']['b']
+    regexp.init['a']['c']['b'].should == regexp.init['a']['b']
+    regexp.init['a']['b']['c'].should == regexp['a']['c']
+    regexp.init['a']['b']['.'].should == regexp['a']['c']
+
+    regexp['a']['b'].final?.should == false
+    regexp.init['a']['c'].final?.should == false
+    regexp.init['a']['c'].final?.should == false
+  end
 
 end
 
