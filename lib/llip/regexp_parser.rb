@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/abstract_parser'
+require 'abstract_parser'
 
 module LLIP
 	

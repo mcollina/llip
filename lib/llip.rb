@@ -3,5 +3,7 @@ module LLIP
   VERSION = "0.2.0"
 end
 
-require File.dirname(__FILE__) + '/llip/parser'
-require File.dirname(__FILE__) + '/llip/visitable'
+$:.unshift(File.dirname(__FILE__) + "/llip/")
+
+require 'parser'
+require 'visitable'

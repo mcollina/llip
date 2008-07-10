@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/regexp_abstract_scanner'
-require File.dirname(__FILE__) + '/regexp_specification'
+require 'regexp_abstract_scanner'
+require 'regexp_specification'
 
 module LLIP
   # It's a scanner for the parser RegexpParser. It has two kind of token: :char and :symbol.

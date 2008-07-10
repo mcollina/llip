@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/token'
+require 'token'
 require 'stringio'
 
 module LLIP

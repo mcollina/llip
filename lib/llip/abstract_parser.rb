@@ -1,7 +1,7 @@
-require File.dirname(__FILE__) + '/production_specification'
-require File.dirname(__FILE__) + '/production_compiler'
-require File.dirname(__FILE__) + '/recursive_production_compiler'
-require File.dirname(__FILE__) + '/llip_error'
+require 'production_specification'
+require 'production_compiler'
+require 'recursive_production_compiler'
+require 'llip_error'
 
 module LLIP
     

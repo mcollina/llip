@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/production_compiler'
+require 'production_compiler'
 
 module LLIP
   
